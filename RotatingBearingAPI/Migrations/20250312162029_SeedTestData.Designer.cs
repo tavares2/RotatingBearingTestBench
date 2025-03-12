@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RotatingBearingAPI.Data;
 
@@ -11,9 +12,11 @@ using RotatingBearingAPI.Data;
 namespace RotatingBearingAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250312162029_SeedTestData")]
+    partial class SeedTestData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace RotatingBearingAPI.Migrations
                             StressLevel = 8.5,
                             Temperature = 60.0,
                             TestSequenceId = 1,
-                            Timestamp = new DateTime(2025, 3, 12, 10, 30, 0, 0, DateTimeKind.Unspecified)
+                            Timestamp = new DateTime(2025, 3, 12, 16, 15, 28, 938, DateTimeKind.Utc).AddTicks(8485)
                         },
                         new
                         {
@@ -68,7 +71,7 @@ namespace RotatingBearingAPI.Migrations
                             StressLevel = 6.7000000000000002,
                             Temperature = 55.299999999999997,
                             TestSequenceId = 2,
-                            Timestamp = new DateTime(2025, 3, 12, 10, 40, 0, 0, DateTimeKind.Unspecified)
+                            Timestamp = new DateTime(2025, 3, 12, 16, 10, 28, 938, DateTimeKind.Utc).AddTicks(8662)
                         });
                 });
 

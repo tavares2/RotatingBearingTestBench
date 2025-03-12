@@ -36,14 +36,19 @@ namespace RotatingBearingAPI.Repositories
             _context.TestSequences.Update(sequence);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var sequence = await _context.TestSequences.FindAsync(id);
             if (sequence != null)
             {
-                _context.TestSequences.Remove(sequence);
-                await _context.SaveChangesAsync();
+                return false; // Return false if the test sequence doesn't exist
+
             }
+
+            _context.TestSequences.Remove(sequence);
+            await _context.SaveChangesAsync();
+
+            return true;  // Return true when deletion is successful
         }
 
     }

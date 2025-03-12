@@ -32,9 +32,9 @@ namespace RotatingBearingAPI.Services
             await _testSequenceRepository.UpdateAsync(sequence);
         }
 
-        public async Task DeleteTestSequenceAsync(int id)
+        public async Task<bool> DeleteTestSequenceAsync(int id)
         {
-            await _testSequenceRepository.DeleteAsync(id);
+            return await _testSequenceRepository.DeleteAsync(id);
         }
     }
 }
