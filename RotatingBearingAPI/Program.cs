@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RotatingBearingAPI.Data;
+using RotatingBearingAPI.Repositories;
+using RotatingBearingAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,12 @@ builder.Services.AddSwaggerGen();
 // Entity Framework Core with SQL Server Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+
+builder.Services.AddScoped<ITestSequenceRepository, TestSequenceRepository>();
+builder.Services.AddScoped<ITestSequenceService, TestSequenceService>();
+builder.Services.AddScoped<ITestResultRepository, TestResultRepository>();
+builder.Services.AddScoped<ITestResultService, TestResultService>();
 
 var app = builder.Build();
 
