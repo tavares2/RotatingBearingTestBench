@@ -8,6 +8,6 @@ namespace RotatingBearingAPI.Repositories
         Task<TestSequence> GetByIdAsync(int id);
         Task<List<TestSequence>> GetAllAsync();
         Task UpdateAsync(TestSequence sequence);
-        Task DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

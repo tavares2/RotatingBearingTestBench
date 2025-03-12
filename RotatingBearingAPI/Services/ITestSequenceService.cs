@@ -8,6 +8,6 @@ namespace RotatingBearingAPI.Services
         Task<TestSequence> GetTestSequenceByIdAsync(int id);
         Task<List<TestSequence>> GetAllTestSequencesAsync();
         Task UpdateTestSequenceAsync(TestSequence sequence);
-        Task DeleteTestSequenceAsync(int id);
+        Task<bool> DeleteTestSequenceAsync(int id);
     }
 }
