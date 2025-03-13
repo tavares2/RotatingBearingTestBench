@@ -1,9 +1,15 @@
 ﻿@page "/"
+@using RotatingBearingUI.Models
+@using RotatingBearingUI.Services
+@inject NavigationManager Navigation
 
-<PageTitle>Index</PageTitle>
+<h3>Rotating Bending Test Bench</h3>
 
-<h1>Hello, world!</h1>
+<p>Welcome to the Test Bench simulation interface.</p>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<nav>
+    <ul>
+        <li><a href="TestRunner">Start Test Simulation</a></li>
+        <li><a href="Results">View Test Results</a></li>
+    </ul>
+</nav>

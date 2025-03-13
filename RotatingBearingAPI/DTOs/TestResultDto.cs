@@ -1,6 +1,6 @@
-﻿namespace RotatingBearingUI.Models
+﻿namespace RotatingBearingAPI.DTOs
 {
-    public class TestResult
+    public class TestResultDto
     {
         public int Id { get; set; }
         public DateTime Timestamp { get; set; }

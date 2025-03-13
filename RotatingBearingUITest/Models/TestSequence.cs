@@ -1,4 +1,4 @@
-﻿namespace RotatingBearingUI.Models
+﻿namespace RotatingBearingUITest.Models
 {
     public class TestSequence
     {

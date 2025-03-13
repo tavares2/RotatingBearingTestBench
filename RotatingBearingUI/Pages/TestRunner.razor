@@ -1,0 +1,64 @@
+﻿@page "/TestRunner"
+@using RotatingBearingUI.Models
+@using RotatingBearingUI.Services
+@inject TestService TestService
+@inject NavigationManager Navigation
+
+<h3>Define Test Sequence</h3>
+
+<EditForm Model="@testSequence" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="name">Test Sequence Name:</label>
+        <InputText id="name" @bind-Value="testSequence.Name" />
+    </div>
+
+    <h4>Test Steps</h4>
+    @for (int i = 0; i < testSequence.Steps.Count; i++)
+    {
+        <div>
+            <h5>Step @testSequence.Steps[i].StepNumber</h5>
+            <div>
+                <label for="setpoint">Setpoint:</label>
+                <InputNumber id="setpoint" @bind-Value="testSequence.Steps[i].Setpoint" />
+            </div>
+            <div>
+                <label for="duration">Duration (in seconds):</label>
+                <InputNumber id="duration" @bind-Value="testSequence.Steps[i].Duration" />
+            </div>
+        </div>
+    }
+
+    <button type="button" @onclick="AddStep">Add Step</button>
+
+    <button type="submit">Start Test Simulation</button>
+</EditForm>
+
+@code {
+    private TestSequence testSequence = new TestSequence
+    {
+        Steps = new List<TestStep> { new TestStep { StepNumber = 1 } }
+    };
+
+    private void AddStep()
+    {
+        var newStep = new TestStep
+        {
+            StepNumber = testSequence.Steps.Count + 1
+        };
+        testSequence.Steps.Add(newStep);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var createdSequence = await TestService.CreateTestSequenceAsync(testSequence);
+        if (createdSequence != null)
+        {
+            // Start the test simulation
+            await TestService.StartTestSimulationAsync(createdSequence.Id);
+            Navigation.NavigateTo("/Results");
+        }
+    }
+}

@@ -23,6 +23,18 @@ builder.Services.AddScoped<ITestSequenceService, TestSequenceService>();
 builder.Services.AddScoped<ITestResultRepository, TestResultRepository>();
 builder.Services.AddScoped<ITestResultService, TestResultService>();
 
+
+// Enable CORS policy
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowUI", policy =>
+//    {
+//        policy.WithOrigins("https://localhost:7108") // Allow the UI to connect from this port
+//              .AllowAnyHeader()
+//              .AllowAnyMethod();
+//    });
+//});
+
 var app = builder.Build();
 
 // HTTP request pipeline Configuration
@@ -34,6 +46,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+// Apply the CORS policy
+app.UseCors("AllowUI"); // Use the policy you defined above
 app.MapControllers();
 
 app.Run();

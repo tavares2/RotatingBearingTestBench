@@ -1,0 +1,46 @@
+﻿@page "/Results"
+@using RotatingBearingUI.Models
+@using RotatingBearingUI.Services
+@inject TestService TestService
+
+<h3>Test Results</h3>
+
+@if (testResults == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Rotation Speed</th>
+                <th>Stress Level</th>
+                <th>Temperature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in testResults)
+            {
+                <tr>
+                    <td>@result.Timestamp</td>
+                    <td>@result.RotationSpeed</td>
+                    <td>@result.StressLevel</td>
+                    <td>@result.Temperature</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<TestResult> testResults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Assume we are retrieving the latest test results by test sequence ID
+        var sequenceId = 1; // You might want to dynamically pass the ID
+        testResults = await TestService.GetTestResultsBySequenceIdAsync(sequenceId);
+    }
+}

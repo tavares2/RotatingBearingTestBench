@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RotatingBearingAPI.DTOs;
 using RotatingBearingAPI.Services;
 
 namespace RotatingBearingAPI.Controllers
@@ -31,11 +32,23 @@ namespace RotatingBearingAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTestResult(int id)
         {
-            var testResult = await _testResultService.GetResultsBySequenceIdAsync(id);
-            if (testResult == null)
+            var testResults = await _testResultService.GetResultsBySequenceIdAsync(id);
+            if (testResults == null)
                 return NotFound();
 
-            return Ok(testResult);
+            var resultDtos = testResults
+                .Select(tr => new TestResultDto
+                {
+                    Id = tr.Id,
+                    Timestamp = tr.Timestamp,
+                    RotationSpeed = tr.RotationSpeed,
+                    StressLevel = tr.StressLevel,
+                    Temperature = tr.Temperature,
+                    TestSequenceId = tr.TestSequenceId
+                })
+                .ToList();
+            return Ok(resultDtos);
+            //return Ok(testResult);
         }
 
     }

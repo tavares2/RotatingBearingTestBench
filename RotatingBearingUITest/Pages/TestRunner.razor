@@ -1,0 +1,95 @@
+﻿<!-- #region C#code -->
+@page "/grid"
+@using RotatingBearingUITest.Models;
+@using RotatingBearingUITest.Services;
+@inject ITestService _testService;
+
+@code {
+    private List<TestResult> Data = null;
+    private int sequenceId;
+    private bool isLoading = false;
+
+    private async Task FetchTestResults()
+    {
+        if (sequenceId > 0)
+        {
+            isLoading = true; // Show loading message
+            StateHasChanged();
+
+            try
+            {
+                Data = await _testService.GetTestResultsBySequenceIdAsync(sequenceId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching test results: {ex.Message}");
+                Data = new List<TestResult>(); // Avoid null reference errors
+            }
+            finally
+            {
+                isLoading = false;
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            Data = null;
+        }
+    }
+
+}
+
+<!-- #endregion -->
+
+<!-- #region HTML -->
+<h3>Test Results</h3>
+
+<!-- Input for Sequence ID -->
+<div>
+    <label for="sequenceId">Enter Sequence ID:</label>
+    <input type="number" id="sequenceId" @bind="sequenceId" @bind:event="oninput" />
+    <button @onclick="FetchTestResults">Get Results</button>
+</div>
+
+<!-- Display Test Results -->
+@if (Data != null && Data.Any())
+{
+    <h4>Test Results</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Test Result ID</th>
+                <th>Timestamp</th>
+                <th>Rotation Speed</th>
+                <th>Stress Level</th>
+                <th>Temperature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Data)
+            {
+                <tr>
+                    <td>@result.Id</td>
+                    <td>@result.Timestamp</td>
+                    <td>@result.RotationSpeed</td>
+                    <td>@result.StressLevel</td>
+                    <td>@result.Temperature</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Data == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p>No results found for the given sequence ID.</p>
+}
+
+
+
+<!-- #endregion -->
+
+
