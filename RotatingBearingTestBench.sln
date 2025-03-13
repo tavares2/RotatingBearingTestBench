@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RotatingBearingAPI", "RotatingBearingAPI\RotatingBearingAPI.csproj", "{59FA86C6-04EE-42FB-8BEC-EBE1DBB2AD8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RotatingBearingUI", "RotatingBearingUI\RotatingBearingUI.csproj", "{FCF7505F-DBB8-4082-9CAA-34B30830AE89}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RotatingBearingUITest", "RotatingBearingUITest\RotatingBearingUITest.csproj", "{BEFF4EED-5A40-41C7-A5C4-42F5B5DD45E7}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{59FA86C6-04EE-42FB-8BEC-EBE1DBB2AD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59FA86C6-04EE-42FB-8BEC-EBE1DBB2AD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59FA86C6-04EE-42FB-8BEC-EBE1DBB2AD8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCF7505F-DBB8-4082-9CAA-34B30830AE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCF7505F-DBB8-4082-9CAA-34B30830AE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCF7505F-DBB8-4082-9CAA-34B30830AE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCF7505F-DBB8-4082-9CAA-34B30830AE89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEFF4EED-5A40-41C7-A5C4-42F5B5DD45E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEFF4EED-5A40-41C7-A5C4-42F5B5DD45E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEFF4EED-5A40-41C7-A5C4-42F5B5DD45E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
