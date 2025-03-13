@@ -1,0 +1,187 @@
+﻿@page "/simulation"
+@using RotatingBearingUITest.Models;
+@using RotatingBearingUITest.Services;
+@inject ITestService _testService;
+
+@code {
+    private int sequenceId;
+    private string sequenceName = string.Empty;
+    private int stepCount;
+    private List<TestStep> steps = new List<TestStep>();
+    private List<TestResult> Data = null;
+    private bool isLoading = false;
+
+    private void GenerateSteps()
+    {
+        //steps = new List<TestStep>();
+        //for (int i = 0; i < stepCount; i++)
+        //{
+        //    steps.Add(new TestStep{Setpoint = 0, Duration = 0});
+        //}
+        //StateHasChanged();
+
+        if (steps == null)
+        {
+            steps = new List<TestStep>();
+        }
+
+        // Adjust the list size dynamically
+        while (steps.Count < stepCount)
+        {
+            steps.Add(new TestStep { Setpoint = 0, Duration = 0 });
+        }
+        while (steps.Count > stepCount)
+        {
+            steps.RemoveAt(steps.Count - 1);
+        }
+
+        StateHasChanged(); // Force UI update
+    }
+
+    private void UpdateSetpoint(int index, ChangeEventArgs e)
+    {
+        if (index >= 0 && index < steps.Count)
+        {
+            if (double.TryParse(e.Value.ToString(), out double result))
+            {
+                steps[index] = new();
+                steps[index].Setpoint = result;
+            }
+        }
+    }
+
+    private void UpdateDuration(int index, string value)
+    {
+        if (index >= 0 && index < steps.Count)
+        {
+            if (int.TryParse(value, out int result))
+            {
+                steps[index].Duration = result;
+            }
+        }
+    }
+
+    private async Task StartSimulation()
+    {
+        if (steps.Count > 0 && !string.IsNullOrWhiteSpace(sequenceName))
+        {
+            isLoading = true;
+            StateHasChanged();
+
+            try
+            {
+                var testSequence = new TestSequence
+                    {
+                        Name = sequenceName,
+                        Steps = steps
+                    };
+                
+                foreach (var step in steps)
+                {
+                    Console.WriteLine($"Step Setpoint: {step.Setpoint}, Step Duration: {step.Duration}");
+                }
+
+                var createdSequence = await _testService.CreateTestSequenceAsync(testSequence);
+
+               
+                await _testService.StartTestSimulationAsync(createdSequence.Id);
+
+                Data = await _testService.GetTestResultsBySequenceIdAsync(createdSequence.Id);
+               
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                isLoading = false;
+                StateHasChanged();
+            }
+        }
+
+        
+    }
+}
+
+
+<h3>Start Test Simulation</h3>
+
+<!-- Input for Sequence Name -->
+<div>
+    <label for="sequenceName">Enter Sequence Name:</label>
+    <input type="text" id="sequenceName" @bind="sequenceName" @bind:event="oninput" />
+</div>
+
+<!-- Select number of steps -->
+<div>
+    <label for="stepCount">Number of Steps:</label>
+    <input type="number" id="stepCount" @bind="stepCount" @bind:event="oninput" min="1" />
+    <button @onclick="GenerateSteps">Set Steps</button>
+</div>
+
+@if (steps != null && steps.Any())
+{
+    <h4>Define Steps</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Step #</th>
+                <th>Setpoint (RPM)</th>
+                <th>Duration (seconds)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var (step, i) in steps.Select((step, i) => (step, i)))
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>
+                        <input type="number" @bind-value="@steps[i].Setpoint" @oninput="@(e =>UpdateSetpoint(i, e))" />
+                    </td>
+                    <td>
+                        <input type="number" value="@steps[i].Duration"
+                               @oninput="@(e => UpdateDuration(i, e.Value?.ToString()))" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button @onclick="StartSimulation" class="btn btn-primary">Start Simulation</button>
+}
+
+@if (isLoading)
+{
+    <p>Running simulation...</p>
+}
+
+@if (Data != null && Data.Any())
+{
+    <h4>Test Results</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Test Result ID</th>
+                <th>Timestamp</th>
+                <th>Rotation Speed</th>
+                <th>Stress Level</th>
+                <th>Temperature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Data)
+            {
+                <tr>
+                    <td>@result.Id</td>
+                    <td>@result.Timestamp</td>
+                    <td>@result.RotationSpeed</td>
+                    <td>@result.StressLevel</td>
+                    <td>@result.Temperature</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
