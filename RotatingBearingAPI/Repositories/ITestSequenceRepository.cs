@@ -9,5 +9,7 @@ namespace RotatingBearingAPI.Repositories
         Task<List<TestSequence>> GetAllAsync();
         Task UpdateAsync(TestSequence sequence);
         Task<bool> DeleteAsync(int id);
+        Task<TestSequence?> FindExistingSequenceAsync(TestSequence sequence);
+        Task SaveAsync();
     }
 }

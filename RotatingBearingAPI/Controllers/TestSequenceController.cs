@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RotatingBearingAPI.Models;
 using RotatingBearingAPI.Services;
 
@@ -39,13 +40,16 @@ namespace RotatingBearingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TestSequence>> CreateSequence([FromBody] TestSequence sequence)
         {
-            if (sequence == null) 
+            if (sequence == null)
             {
                 return BadRequest("Invalid Data,");
             }
 
-            var createSequence = await _testSequenceService.CreateTestSequenceAsync(sequence);
-            return CreatedAtAction(nameof(GetSequenceById), new { id = createSequence.Id }, createSequence);
+
+            var createdSequence = await _testSequenceService.CreateTestSequenceAsync(sequence);
+            //await _testSequenceService.CreateTestSequenceAsync(sequence);
+            return Created($"api/testsequence/{createdSequence.Id}", createdSequence);
+            //return CreatedAtAction(nameof(GetSequenceById), new { id = createSequence.Id }, createSequence);
         }
 
         // DELETE: api/testsequence/{id}
