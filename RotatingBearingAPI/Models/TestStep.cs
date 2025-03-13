@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RotatingBearingAPI.Models
 {
@@ -15,7 +16,9 @@ namespace RotatingBearingAPI.Models
         [Required]
         public int Duration { get; set; }
 
+        [ForeignKey("TestSequenceId")]
         public int TestSequenceId { get; set; }
-        public TestSequence TestSequence { get; set; }
+
+        public TestSequence? TestSequence { get; set; }
     }
 }

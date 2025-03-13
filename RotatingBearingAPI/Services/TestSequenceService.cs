@@ -14,7 +14,27 @@ namespace RotatingBearingAPI.Services
 
         public async Task<TestSequence> CreateTestSequenceAsync(TestSequence sequence)
         {
-            return await _testSequenceRepository.AddAsync(sequence);
+            // Check for existing sequence
+            //var existingSequence = await _testSequenceRepository.FindExistingSequenceAsync(sequence);
+            //if (existingSequence != null)
+            //{
+            //    return existingSequence; // Return existing sequence instead of creating a duplicate
+            //}
+
+            // Add the TestSequence first to generate the Id
+            var createdSequence = await _testSequenceRepository.AddAsync(sequence);
+
+            // After adding TestSequence, set the TestSequenceId in each step
+            foreach (var step in createdSequence.Steps)
+            {
+                step.TestSequence = createdSequence; // Ensure the relationship is set
+                step.TestSequenceId = createdSequence.Id; // Explicitly set the foreign key
+            }
+
+            // Save the TestSequence with associated steps
+            await _testSequenceRepository.SaveAsync();  // Ensure save operation if using a unit of work pattern
+
+            return createdSequence;
         }
 
         public async Task<TestSequence> GetTestSequenceByIdAsync(int id)

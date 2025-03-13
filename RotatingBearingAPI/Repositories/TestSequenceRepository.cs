@@ -36,6 +36,20 @@ namespace RotatingBearingAPI.Repositories
             _context.TestSequences.Update(sequence);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<TestSequence?> FindExistingSequenceAsync(TestSequence sequence)
+        {
+            return await _context.TestSequences
+                .Include(ts => ts.Steps)
+                .FirstOrDefaultAsync(ts => ts.Name == sequence.Name &&
+                    ts.Steps.Count == sequence.Steps.Count &&
+                    ts.Steps.All(s => sequence.Steps.Any(ns =>
+                        ns.StepNumber == s.StepNumber &&
+                        ns.Setpoint == s.Setpoint &&
+                        ns.Duration == s.Duration
+                    )));
+        }
+
         public async Task<bool> DeleteAsync(int id)
         {
             var sequence = await _context.TestSequences.FindAsync(id);
@@ -51,5 +65,9 @@ namespace RotatingBearingAPI.Repositories
             return true;  // Return true when deletion is successful
         }
 
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
