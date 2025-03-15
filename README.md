@@ -60,7 +60,7 @@ The system consists of two main parts:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/RotatingBearingTestBench.git
+   git clone https://github.com/tavares2/RotatingBearingTestBench.git
    ```
    
 2. **Database Setup**:
@@ -106,9 +106,9 @@ The system consists of two main parts:
 ### Frontend (UI - RotatingBearingUI)
 
 - **Pages**:
-  - `Simulation.razor`: Allows users to input test sequence name and steps (setpoint, duration) and start the simulation.
-  - `Grid.razor`: Allows users to input a `TestSequenceId` and view test results in tabular format.
-  - `Home.razor`: The default landing page.
+  - `SimulationTest.razor`: Allows users to input test sequence name and steps (setpoint, duration) and start the simulation.
+  - `TestRunner.razor`: Allows users to input a `TestSequenceId` and view test results in tabular format.
+  - `Index.razor`: The default landing page.
 
 - **Services**:
   - `TestService.cs`: Communicates with the API to manage test sequences and results.
