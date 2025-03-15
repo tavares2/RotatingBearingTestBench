@@ -1,0 +1,86 @@
+﻿@using IgniteUI.Blazor.Controls
+@using RotatingBearingUITest.Models
+
+<IgbCategoryChart Height="500px" Width="100%"
+                  DataSource="@ChartData"
+                  ChartType="@CategoryChartType.Line"
+                  Title="Test Results">
+
+    <!-- X Axis for Rotation Speed -->
+    <IgbCategoryXAxis Name="xAxis"
+                      @ref="xAxis"
+                      Label="Rotation Speed"
+                      DataSource="@ChartData">
+    </IgbCategoryXAxis>
+
+    <!-- Y Axis for Stress Level and Temperature -->
+    <IgbNumericYAxis Name="yAxis"
+                     @ref="yAxis">
+    </IgbNumericYAxis>
+
+    <!-- Line Series for Stress Level -->
+    <IgbLineSeries Name="StressLevelSeries"
+                   @ref="stressLevelSeries"
+                   Title="Stress Level"
+                   XAxisName="xAxis"
+                   YAxisName="yAxis"
+                   MarkerType="MarkerType.Circle"
+                   DataSource="@ChartData"
+                   ValueMemberPath="StressLevel"
+                   ShowDefaultTooltip="true"
+                   DashArray="@(new double[] { 2, 2 })">
+    </IgbLineSeries>
+
+    <!-- Line Series for Temperature -->
+    <IgbLineSeries Name="TemperatureSeries"
+                   @ref="temperatureSeries"
+                   Title="Temperature"
+                   XAxisName="xAxis"
+                   YAxisName="yAxis"
+                   MarkerType="MarkerType.Circle"
+                   DataSource="@ChartData"
+                   ValueMemberPath="Temperature"
+                   ShowDefaultTooltip="true"
+                   DashArray="@(new double[] { 5, 5 })">
+    </IgbLineSeries>
+
+</IgbCategoryChart>
+
+
+
+
+
+@code {
+
+    
+    private IgbDataChart chart;
+    private IgbCategoryXAxis xAxis;
+    private IgbNumericYAxis yAxis;
+    private IgbLineSeries stressLevelSeries;
+    private IgbLineSeries temperatureSeries;
+    
+    [Parameter] public List<TestResult> TestResults { get; set; }
+    [Parameter] public List<TestStep> Steps { get; set; }
+
+    private List<object> ChartData = new();
+
+    // Initialize the chart data
+    protected override void OnInitialized()
+    {
+        if (TestResults == null || Steps == null || !TestResults.Any() || !Steps.Any())
+        {
+            return;
+        }
+
+        // Map TestResults and Steps into a list for the chart
+        ChartData = TestResults
+            .Select(result => new
+            {
+                result.RotationSpeed,
+                result.StressLevel,
+                result.Temperature
+            })
+            .Cast<object>() // Convert to object since IgniteUI charts expect generic objects
+            .ToList();
+    }
+}
