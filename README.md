@@ -63,7 +63,7 @@ The system consists of two main parts:
    git clone https://github.com/yourusername/RotatingBearingTestBench.git
    ```
    
-   2. **Database Setup**:
+2. **Database Setup**:
    - Create a new database in SQL Server for the application (e.g., `RotatingBearingDB`).
    - Configure the connection string in `appsettings.json` in the `RotatingBearingAPI` project.
    
