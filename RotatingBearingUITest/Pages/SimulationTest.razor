@@ -1,6 +1,7 @@
 ﻿@page "/simulation"
 @using RotatingBearingUITest.Models;
 @using RotatingBearingUITest.Services;
+@using RotatingBearingUITest.Shared;
 @inject ITestService _testService;
 
 @code {
@@ -13,12 +14,6 @@
 
     private void GenerateSteps()
     {
-        //steps = new List<TestStep>();
-        //for (int i = 0; i < stepCount; i++)
-        //{
-        //    steps.Add(new TestStep{Setpoint = 0, Duration = 0});
-        //}
-        //StateHasChanged();
 
         if (steps == null)
         {
@@ -160,6 +155,9 @@
 
 @if (Data != null && Data.Any())
 {
+    <h4>Test Results Chart</h4>
+    <TestResultsChart TestResults="Data" Steps="steps" />
+
     <h4>Test Results</h4>
     <table class="table">
         <thead>

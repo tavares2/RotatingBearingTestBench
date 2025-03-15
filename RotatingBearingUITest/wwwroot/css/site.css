@@ -62,3 +62,16 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+/* Ensure chart container has space */
+.container.vertical.fill {
+    width: 100%; /* Ensure it's taking full width of its parent */
+    height: 500px; /* You can adjust the height to fit your needs, or use 100vh for full viewport height */
+}
+
+/* Ensure the chart takes full size inside the container */
+.IgbDataChart {
+    width: 100%; /* Make sure the chart takes full width of its container */
+    height: 100%; /* Make sure the chart takes full height of its container */
+}

@@ -15,7 +15,7 @@ builder.Services.AddHttpClient<ITestService, TestService>
    {
        client.BaseAddress = new Uri("https://localhost:7129/");
     });
-
+builder.Services.AddIgniteUIBlazor();
 
 var app = builder.Build();
 
