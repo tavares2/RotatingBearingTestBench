@@ -14,13 +14,7 @@ namespace RotatingBearingAPI.Services
 
         public async Task<TestSequence> CreateTestSequenceAsync(TestSequence sequence)
         {
-            // Check for existing sequence
-            //var existingSequence = await _testSequenceRepository.FindExistingSequenceAsync(sequence);
-            //if (existingSequence != null)
-            //{
-            //    return existingSequence; // Return existing sequence instead of creating a duplicate
-            //}
-
+            
             // Add the TestSequence first to generate the Id
             var createdSequence = await _testSequenceRepository.AddAsync(sequence);
 
