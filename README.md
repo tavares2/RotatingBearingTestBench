@@ -18,9 +18,9 @@ This project is a software prototype for a mechanical test bench that simulates 
 
 ## Technologies
 
-- **Backend**: ASP.NET Core Web API (.NET 6)
+- **Backend**: ASP.NET Core Web API 
 - **Frontend**: Blazor Server
-- **Database**: SQL Server, Entity Framework Core
+- **Database**: SQL Server
 - **Charting Library**: IgniteUI.Blazor for data visualization
 - **ORM**: Entity Framework Core
 - **Database Management**: SQL Server
@@ -51,8 +51,8 @@ The system consists of two main parts:
 
 ### Prerequisites
 
-- **.NET 6 SDK**: To run and build the application.
-- **SQL Server**: Used to store test sequences and results (can use SQL Server Express for local development).
+- **.NET 6 & 8 SDK**: To run and build the application.
+- **SQL Server**: Used to store test sequences and results.
 - **Entity Framework Core**: ORM for database management.
 - **Visual Studio or VS Code**: To open and work on the project.
 
@@ -75,13 +75,15 @@ The system consists of two main parts:
      ```
 
 4. **Build and Run**:
+   - Open the `RotatingBearingUI` project, navigate to `Program.cs` and update the API URL to match the URL of your `RotatingBearingAPI`.
    - Open the solution in Visual Studio or Visual Studio Code.
    - Build and run both the `RotatingBearingAPI` (backend API) and `RotatingBearingUI` (Blazor UI).
    - The backend API will be available at `https://localhost:5001` (or similar).
    - The Blazor UI will be available at `https://localhost:5002` (or similar).
 
-5. **Start Testing**:
-   - In the Blazor UI, go to the "Start Test Simulation" page to create a new test sequence, define steps, and start the simulation.
+6. **Start Testing**:
+   - In the Blazor UI, go to the "Test Simulation" page to create a new test sequence, define steps, and start the simulation.
+   - In the Blazor UI, go to the "Sequence Results" page to view the test results for the desire test sequence.
 
 ## Project Structure
 
@@ -106,7 +108,7 @@ The system consists of two main parts:
 ### Frontend (UI - RotatingBearingUI)
 
 - **Pages**:
-  - `SimulationTest.razor`: Allows users to input test sequence name and steps (setpoint, duration) and start the simulation.
+  - `SimulationTest.razor`: Allows users to input test sequence name and steps (setpoint, duration), to start the simulation and to see the results in a graphical chart and tabular format.
   - `TestRunner.razor`: Allows users to input a `TestSequenceId` and view test results in tabular format.
   - `Index.razor`: The default landing page.
 
@@ -149,14 +151,14 @@ The system consists of two main parts:
 
 ### Create a Test Sequence
 
-1. Navigate to the **"Start Test Simulation"** page in the Blazor UI.
+1. Navigate to the **"Test Simulation"** page in the Blazor UI.
 2. Enter a **test sequence name** and define **multiple test steps** (setpoint, duration).
 3. Click **"Start Simulation"** to initiate the test.
-4. View the simulation progress, results, and charts.
+4. View the simulation results.
 
 ### View Test Results
 
-1. Navigate to the **"Test Results"** page.
+1. Navigate to the **"Sequence Results"** page.
 2. Input a **TestSequenceId** to retrieve all results related to that specific sequence.
 3. Results will be displayed in a tabular format, showing timestamp, rotation speed, stress level, and temperature.
 
