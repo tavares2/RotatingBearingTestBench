@@ -48,7 +48,6 @@ namespace RotatingBearingAPI.Controllers
                 })
                 .ToList();
             return Ok(resultDtos);
-            //return Ok(testResult);
         }
 
     }

@@ -47,9 +47,9 @@ namespace RotatingBearingAPI.Controllers
 
 
             var createdSequence = await _testSequenceService.CreateTestSequenceAsync(sequence);
-            //await _testSequenceService.CreateTestSequenceAsync(sequence);
+            
             return Created($"api/testsequence/{createdSequence.Id}", createdSequence);
-            //return CreatedAtAction(nameof(GetSequenceById), new { id = createSequence.Id }, createSequence);
+            
         }
 
         // DELETE: api/testsequence/{id}
