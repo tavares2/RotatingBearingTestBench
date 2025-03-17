@@ -23,7 +23,7 @@ This project is a software prototype for a mechanical test bench that simulates 
 - **Database**: SQL Server
 - **Charting Library**: IgniteUI.Blazor for data visualization
 - **ORM**: Entity Framework Core
-- **Database Management**: SQL Server
+- **Database Management**: SQL Server Management Studio
 - **Version Control**: Git, GitHub
 
 ## System Overview
@@ -165,7 +165,7 @@ The system consists of two main parts:
 ### View Test Results in Chart Format
 
 - Results are displayed as a graphical chart using **IgniteUI.Blazor**.
-- The chart visualizes key parameters like **stress level**, **rotation speed**, and **temperature** over time.
+- The chart visualizes key parameters like **stress level** and **temperature** for each **rotation speed**.
 
 ## Future Enhancements
 
