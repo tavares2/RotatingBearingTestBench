@@ -24,9 +24,9 @@ To move the system to the cloud, we need a combination of Azure services to ensu
 ## 3. Steps to Deploy on Azure  
 
 ### **Step 1: Prepare the Application for Deployment**  
-✅ Ensure the application is containerized using **Docker** (optional but recommended).  
-✅ Update the database connection string to support **Azure SQL Database**. 
-✅ Implement **Identity and Access Management (IAM)** via **Azure AD** for authentication.  
+- Ensure the application is containerized using **Docker** (optional but recommended).  
+- Update the database connection string to support **Azure SQL Database**.
+- Implement **Identity and Access Management (IAM)** via **Azure AD** for authentication.  
 
 ### **Step 2: Set Up Azure Resources**  
 #### **Provision Azure SQL Database**  
@@ -43,13 +43,13 @@ To move the system to the cloud, we need a combination of Azure services to ensu
 - Enable **HTTPS & Azure Firewall** for security.  
 
 ### **Step 3: Enable Monitoring & Performance Optimization**  
-✅ Enable **Azure Application Insights** for logging & performance tracking.  
-✅ Set up **Azure Monitor & Alerts** to track failures or performance issues.  
-✅ Use **Azure Load Balancer** or **Azure Front Door** to distribute traffic.  
+- Enable **Azure Application Insights** for logging & performance tracking.  
+- Set up **Azure Monitor & Alerts** to track failures or performance issues.  
+- Use **Azure Load Balancer** or **Azure Front Door** to distribute traffic.  
 
 ### **Step 4: Implement Auto-Scaling**  
-✅ Configure **Azure App Service Scaling** or **Kubernetes Horizontal Pod Autoscaler** to handle variable loads..  
-✅ Use **Azure Cache for Redis** to optimize database queries.  
+- Configure **Azure App Service Scaling** or **Kubernetes Horizontal Pod Autoscaler** to handle variable loads..  
+- Use **Azure Cache for Redis** to optimize database queries.  
 
 ### **Step 5: CI/CD Pipeline for Deployment**  
 - Set up **GitHub Actions** or **Azure DevOps Pipelines** for automated deployments.  
