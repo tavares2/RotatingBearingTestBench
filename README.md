@@ -171,5 +171,5 @@ The system consists of two main parts:
 
 - **Real-time Data Visualization**: Implement real-time updates during the test simulation.
 - **Input Validation**: Add validation for user input on both test sequence creation and result display.
-- **Cloud Deployment**: Implement CI/CD pipelines and deploy the system on a cloud platform such as Azure.
+- **Cloud Deployment**: For full deployment instructions, see the [Scaling and Deploying the Test Simulation System to Azure](docs/DEPLOYMENT.md).
 - **PLC Integration**: Integrate with hardware PLCs for real-time monitoring and control of the test bench.
